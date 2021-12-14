@@ -1,58 +1,60 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import React, { FC } from 'react';
 import './App.css';
+import { useAppDispatch } from "./app/hooks";
+import { store } from "./app/store";
+import FlowWorkspace from "./components/flowWorkspace";
+import { entitiesLoading, entitiesReceived, entityAdded, entityUpdated } from "./features/entities/entitiesSlice";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+const App: FC = (): JSX.Element => {
+    const dispatch = useAppDispatch();
+
+    const onClickEvent = () => {
+        console.log(store.getState().entities);
+        dispatch(entityAdded({
+            id: "622f65c7-76f0-4cd1-ace5-f9d078d7aaae",
+            type: "syncPoint",
+            data: {
+                id: 123,
+                label: 'test'
+            },
+            position: {
+                "x": 250,
+                "y": 25
+            }
+        }));
+        console.log(store.getState().entities);
+        dispatch(entityUpdated({
+            id: '622f65c7-76f0-4cd1-ace5-f9d078d7aaae',
+            changes: {
+                data: {
+                    id: 123,
+                    label: 'test2'
+                }
+            }
+        }));
+        dispatch(entitiesLoading());
+        dispatch(entitiesReceived([
+            {
+                id: "622f65c7-76f0-4cd1-ace5-f9d078d7aaa1",
+                type: "syncPoint",
+                data: {
+                    id: 312,
+                    label: 'abcdefgh'
+                },
+                position: {
+                    "x": 250,
+                    "y": 25
+                }
+            }
+        ]))
+        console.log(store.getState().entities);
+    }
+
+    return (
+        <React.Fragment>
+            <FlowWorkspace/>
+        </React.Fragment>
+    );
 }
 
 export default App;
