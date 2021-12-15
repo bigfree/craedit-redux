@@ -1,13 +1,14 @@
 import React, { FC } from "react";
 import ReactFlow, { Background, BackgroundVariant } from "react-flow-renderer";
+import { useSelector } from "react-redux";
 import { useAppDispatch } from "../app/hooks";
-import { store } from "../app/store";
-import { entityAdded, selectEntities } from "../features/entities/entitiesSlice";
+import { entitiesSelector, entityAdded } from "../features/entities/entitiesSlice";
 
 const FlowWorkspace: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
+    const nodes = useSelector(entitiesSelector.selectAll);
 
-    console.log(selectEntities.selectAll(store.getState()));
+    console.log(nodes);
 
     const fetchNodes = () => {
         dispatch(entityAdded({
@@ -30,7 +31,7 @@ const FlowWorkspace: FC = (): JSX.Element => {
             },
             position: { x: 100, y: 125 },
         }));
-        console.log(selectEntities.selectAll(store.getState()));
+        console.log(nodes);
     }
 
     return (
@@ -40,13 +41,16 @@ const FlowWorkspace: FC = (): JSX.Element => {
             </div>
             <div style={ { height: 600 } }>
                 <ReactFlow
-                    elements={ selectEntities.selectAll(store.getState()) }
+                    elements={ nodes }
                 >
                     <Background
                         variant={ BackgroundVariant.Dots }
                         gap={ 12 }
                     />
                 </ReactFlow>
+            </div>
+            <div>
+                { JSON.stringify(nodes) }
             </div>
         </React.Fragment>
     );

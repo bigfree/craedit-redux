@@ -13,6 +13,7 @@ const entitiesAdapter = createEntityAdapter<IWFEntityType>({
     selectId: (element: IWFEntityType) => element.id,
 });
 
+// https://stackoverflow.com/a/69306749/883908
 export const entitiesSlice = createSlice({
     name: 'workflowElements',
     initialState: entitiesAdapter.getInitialState<IEntitiesStateType>({
@@ -44,7 +45,7 @@ export const { entityAdded, entitiesLoading, entitiesReceived, entityUpdated } =
  * Select Entities
  * @type {EntitySelectors<IWFEntityType, RootState>}
  */
-export const selectEntities = entitiesAdapter.getSelectors<RootState>((state: RootState) => state.entities);
+export const entitiesSelector = entitiesAdapter.getSelectors<RootState>((state: RootState) => state.entities);
 
 /**
  * Export reducer
