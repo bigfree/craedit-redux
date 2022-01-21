@@ -1,0 +1,36 @@
+[
+  {
+    "id": "2hOqJTLdTUjCVZwLp7ksA",
+    "type": "syncPoint",
+    "data": {
+      "id": 123,
+      "label": "test"
+    },
+    "position": {
+      "x": 250,
+      "y": 25
+    }
+  },
+//  {
+//    "id": "sVUt6JmFT7jZvV0FOEjMl",
+//    "data": {
+//      "id": 2,
+//      "label": "Another Node"
+//    },
+//    "position": {
+//      "x": 100,
+//      "y": 125
+//    }
+//  },
+//  {
+//    "id": "iScz51G-jZ7QTCg_1_jkz",
+//    "data": {
+//      "id": 2,
+//      "label": "ABCD"
+//    },
+//    "position": {
+//      "x": 125,
+//      "y": 300
+//    }
+//  }
+]

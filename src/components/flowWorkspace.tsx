@@ -1,3 +1,4 @@
+import { nanoid } from '@reduxjs/toolkit'
 import React, { FC } from "react";
 import ReactFlow, { Background, BackgroundVariant, Connection, Edge } from "react-flow-renderer";
 import { useSelector } from "react-redux";
@@ -6,9 +7,10 @@ import {
     entitiesLoading,
     entitiesOnConnect,
     entitiesReceived,
-    entitiesSelector, fetchWorkflowById
+    entitiesSelector,
+    fetchEntitiesByWfId
 } from "../features/entities/entitiesSlice";
-import { nanoid } from '@reduxjs/toolkit'
+import { entitiesTypes } from "./entities";
 
 const FlowWorkspace: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
@@ -23,8 +25,8 @@ const FlowWorkspace: FC = (): JSX.Element => {
                 id: nanoid(),
                 type: 'input',
                 data: {
-                    id: 123,
-                    label: 'test'
+                    id: 'TA_SrPreCompleteServiceInformationCancel',
+                    name: 'test'
                 },
                 position: {
                     x: 250,
@@ -34,16 +36,16 @@ const FlowWorkspace: FC = (): JSX.Element => {
             {
                 id: nanoid(),
                 data: {
-                    id: 2,
-                    label: 'Another Node'
+                    id: 'TA_SrPreCompleteServiceInformationCancel',
+                    name: 'Another Node'
                 },
                 position: {x: 100, y: 125},
             },
             {
                 id: nanoid(),
                 data: {
-                    id: 2,
-                    label: 'ABCD'
+                    id: 'TA_SrPreCompleteServiceInformationCancel',
+                    name: 'ABCD'
                 },
                 position: {x: 125, y: 300},
             }
@@ -52,7 +54,7 @@ const FlowWorkspace: FC = (): JSX.Element => {
     }
 
     const fetchAsyncNodes = async () => {
-        const result = await dispatch(fetchWorkflowById('test'));
+        await dispatch(fetchEntitiesByWfId('test'));
     }
 
     return (
@@ -65,6 +67,7 @@ const FlowWorkspace: FC = (): JSX.Element => {
                 <ReactFlow
                     elements={nodes}
                     onConnect={(params: Edge | Connection) => dispatch(entitiesOnConnect(params))}
+                    nodeTypes={entitiesTypes}
                 >
                     <Background
                         variant={BackgroundVariant.Dots}

@@ -1,36 +1,68 @@
 [
-  {
-    "id": "2hOqJTLdTUjCVZwLp7ksA",
-    "type": "input",
-    "data": {
-      "id": 123,
-      "label": "test"
+    {
+        "id": "2hOqJTLdTUjCVZwLp7ksA",
+        "type": "syncPoint",
+        "data": {
+            "id": "TA_SrPreCompleteServiceInformationCancel",
+            "name": "Požadavek na vyjádření"
+        },
+        "position": {
+            "x": 250,
+            "y": 25
+        }
     },
-    "position": {
-      "x": 250,
-      "y": 25
-    }
-  },
-  {
-    "id": "sVUt6JmFT7jZvV0FOEjMl",
-    "data": {
-      "id": 2,
-      "label": "Another Node"
+    {
+        "id": "sVUt6JmFT7jZvV0FOEjMl",
+        "type": "conditionPoint",
+        "data": {
+            "id": "TA_SrPreCompleteServiceInformationCancel",
+            "name": "Karta služby nebyla předvyplněna"
+        },
+        "position": {
+            "x": 350,
+            "y": 60
+        }
     },
-    "position": {
-      "x": 100,
-      "y": 125
-    }
-  },
-  {
-    "id": "iScz51G-jZ7QTCg_1_jkz",
-    "data": {
-      "id": 2,
-      "label": "ABCD"
+    {
+        "id": "jZ7QTCg_1_jkz",
+        "type": "taskPoint",
+        "data": {
+            "id": "TA_SrPreCompleteServiceInformationCancel",
+            "name": "Vyplnění karty služby"
+        },
+        "position": {
+            "x": 280,
+            "y": 90
+        }
     },
-    "position": {
-      "x": 125,
-      "y": 300
+    {
+        "id": "jZ7QTCg_1_jka",
+        "type": "taskPoint",
+        "data": {
+            "id": "TA_SrPreCompleteServiceInformationCancel",
+            "name": "Zrušení úkolu na předvyplnění KS"
+        },
+        "position": {
+            "x": 380,
+            "y": 90
+        }
+    },
+    {
+        "id": "cUhU2vZTg8qniKYf0Wa9H",
+        "arrowHeadType": "arrowclosed",
+        "type": "straight",
+        "source": "sVUt6JmFT7jZvV0FOEjMl",
+        "sourceHandle": null,
+        "target": "jZ7QTCg_1_jkz",
+        "targetHandle": null
+    },
+    {
+        "id": "cUhU2vZTg8qniKYf0Wa9A",
+        "arrowHeadType": "arrowclosed",
+        "type": "straight",
+        "source": "sVUt6JmFT7jZvV0FOEjMl",
+        "sourceHandle": null,
+        "target": "jZ7QTCg_1_jka",
+        "targetHandle": null
     }
-  }
 ]
