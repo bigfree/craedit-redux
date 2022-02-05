@@ -10,7 +10,6 @@ COPY package.json yarn.lock ./
 
 # install app dependencies
 RUN yarn global add react-scripts@3.4.1
-RUN npx browserslist@latest --update-db
 RUN yarn install
 
 COPY . .
