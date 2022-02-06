@@ -83,3 +83,11 @@ export type EntityDataType = EntitySyncPointType & EntityConditionPointType & En
  * Workflow entity
  */
 export type WFEntityType = FlowElement<EntityDataType>;
+
+/**
+ * Workflow element
+ */
+export type WorkflowType = {
+    id: string;
+    name: string;
+}

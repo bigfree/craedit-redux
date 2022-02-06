@@ -1,84 +1,88 @@
-import { nanoid } from '@reduxjs/toolkit'
-import React, { FC } from "react";
-import ReactFlow, { Background, BackgroundVariant, Connection, Edge } from "react-flow-renderer";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "../app/hooks";
-import {
-    entitiesLoading,
-    entitiesOnConnect,
-    entitiesReceived,
-    entitiesSelector,
-    fetchEntitiesByWfId
-} from "../features/entities/entitiesSlice";
+import { FC, Fragment, MouseEvent, useState } from "react";
+import ReactFlow, { Background, BackgroundVariant, Node } from "react-flow-renderer";
 import { entitiesTypes } from "./entities";
+import { WFEntityType } from "../types";
+import { Box } from "@mui/material";
+import ContextMenu from "./contextMenu/ContextMenu";
+import { useAppDispatch } from "../app/hooks";
+import { entitiesSelector, entityUpdated } from "../stores/entities/entitiesSlice";
+import { useSelector } from "react-redux";
 
+/**
+ * FlowWorkspace component
+ * @constructor
+ */
 const FlowWorkspace: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const nodes = useSelector(entitiesSelector.selectAll);
+    const [contextMenu, setContextMenu] = useState<{
+        mouseX: number;
+        mouseY: number;
+    } | null>(null);
 
-    console.log(nodes);
-
-    const fetchNodes = () => {
-        dispatch(entitiesLoading());
-        dispatch(entitiesReceived([
-            {
-                id: nanoid(),
-                type: 'input',
-                data: {
-                    id: 'TA_SrPreCompleteServiceInformationCancel',
-                    name: 'test'
-                },
-                position: {
-                    x: 250,
-                    y: 25
-                }
-            },
-            {
-                id: nanoid(),
-                data: {
-                    id: 'TA_SrPreCompleteServiceInformationCancel',
-                    name: 'Another Node'
-                },
-                position: {x: 100, y: 125},
-            },
-            {
-                id: nanoid(),
-                data: {
-                    id: 'TA_SrPreCompleteServiceInformationCancel',
-                    name: 'ABCD'
-                },
-                position: {x: 125, y: 300},
-            }
-        ]));
-        console.log(nodes);
+    /**
+     * Open context menu
+     * @param event
+     */
+    const handlePaneContextMenu = (event: MouseEvent) => {
+        event.preventDefault();
+        setContextMenu(null === contextMenu ? {
+            mouseX: event.clientX - 2,
+            mouseY: event.clientY - 4,
+        } : null);
     }
 
-    const fetchAsyncNodes = async () => {
-        await dispatch(fetchEntitiesByWfId('test'));
+    /**
+     * Close context menu
+     */
+    const handlePaneContextMenuClose = () => {
+        setContextMenu(null);
+    }
+
+    /**
+     * Update entity position
+     * @param event
+     * @param node
+     */
+    const handleNodeDragStop = (event: MouseEvent, node: WFEntityType) => {
+        dispatch(entityUpdated({
+            id: node.id,
+            changes: {
+                position: {
+                    x: (node as Node).position.x,
+                    y: (node as Node).position.y,
+                }
+            }
+        }));
     }
 
     return (
-        <React.Fragment>
-            <div>
-                <button onClick={fetchNodes}>Fetch nodes!</button>
-                <button onClick={fetchAsyncNodes}>Fetch async nodes!</button>
-            </div>
-            <div style={{height: 600}}>
+        <Fragment>
+            <Box sx={{
+                flex: '1 1 100%',
+                height: '100%',
+            }}>
                 <ReactFlow
                     elements={nodes}
-                    onConnect={(params: Edge | Connection) => dispatch(entitiesOnConnect(params))}
                     nodeTypes={entitiesTypes}
+                    snapToGrid={true}
+                    snapGrid={[2, 2]}
+                    selectNodesOnDrag={false}
+                    onPaneContextMenu={handlePaneContextMenu}
+                    onNodeDragStop={handleNodeDragStop}
                 >
                     <Background
                         variant={BackgroundVariant.Dots}
                         gap={12}
                     />
                 </ReactFlow>
-            </div>
-            <div>
-                {JSON.stringify(nodes)}
-            </div>
-        </React.Fragment>
+            </Box>
+            <ContextMenu
+                coordinates={contextMenu}
+                handleClose={handlePaneContextMenuClose}
+            />
+        </Fragment>
     );
 }
+
 export default FlowWorkspace;
