@@ -28,6 +28,7 @@ const ContextMenu: FC<ContextMenuPropsType> = ({coordinates, handleClose}: Conte
                     width: 320,
                     maxWidth: '100%',
                 }}
+                elevation={3}
             >
                 <Box
                     component={'li'}
@@ -53,16 +54,19 @@ const ContextMenu: FC<ContextMenuPropsType> = ({coordinates, handleClose}: Conte
                     >
                         <Button sx={{
                             width: 85,
+                            py: 0.5,
                             fontSize: 11,
                             background: 'yellow'
                         }}>SyncPoint</Button>
                         <Button sx={{
                             width: 85,
+                            py: 0.5,
                             fontSize: 11,
                             background: 'lightcyan',
                         }}>Condition</Button>
                         <Button sx={{
                             width: 85,
+                            py: 0.5,
                             fontSize: 11,
                             background: 'lightgrey'
                         }}>Task</Button>

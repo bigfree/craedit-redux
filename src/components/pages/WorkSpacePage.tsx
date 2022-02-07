@@ -2,7 +2,7 @@ import { FC, Fragment, useEffect } from "react";
 import { Box } from "@mui/material";
 import FlowWorkspace from "../flowWorkspace";
 import { useAppDispatch } from "../../app/hooks";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { useGetEntitiesByWorkflowIdQuery } from "../../stores/api";
 import { entitiesReceived } from "../../stores/entities/entitiesSlice";
 
@@ -85,6 +85,7 @@ const WorkSpacePage: FC = (): JSX.Element => {
                 </Box>
 
                 <FlowWorkspace/>
+                <Outlet/>
             </Box>
         </Fragment>
     );

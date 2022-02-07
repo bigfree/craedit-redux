@@ -7,6 +7,7 @@ import ContextMenu from "./contextMenu/ContextMenu";
 import { useAppDispatch } from "../app/hooks";
 import { entitiesSelector, entityUpdated } from "../stores/entities/entitiesSlice";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 /**
  * FlowWorkspace component
@@ -14,7 +15,9 @@ import { useSelector } from "react-redux";
  */
 const FlowWorkspace: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
-    const nodes = useSelector(entitiesSelector.selectAll);
+    const nodes = useSelector(entitiesSelector.selectAll)
+    const navigate = useNavigate();
+
     const [contextMenu, setContextMenu] = useState<{
         mouseX: number;
         mouseY: number;
@@ -56,6 +59,15 @@ const FlowWorkspace: FC = (): JSX.Element => {
         }));
     }
 
+    /**
+     * Open entity detail
+     * @param event
+     * @param node
+     */
+    const handleOpenDetailEntity = (event: MouseEvent, node: WFEntityType) => {
+        navigate(node.id);
+    }
+
     return (
         <Fragment>
             <Box sx={{
@@ -70,10 +82,11 @@ const FlowWorkspace: FC = (): JSX.Element => {
                     selectNodesOnDrag={false}
                     onPaneContextMenu={handlePaneContextMenu}
                     onNodeDragStop={handleNodeDragStop}
+                    onElementClick={handleOpenDetailEntity}
                 >
                     <Background
                         variant={BackgroundVariant.Dots}
-                        gap={12}
+                        gap={10}
                     />
                 </ReactFlow>
             </Box>
