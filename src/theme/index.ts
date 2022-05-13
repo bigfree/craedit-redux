@@ -1,16 +1,39 @@
-import { createTheme, ThemeOptions } from "@mui/material/styles";
+import {createTheme, ThemeOptions} from "@mui/material";
 
-export const themeOptions: ThemeOptions = {
+const themeOptions: ThemeOptions = {
     palette: {
-        mode: 'light',
         primary: {
-            main: '#263238',
+            main: '#6a1b9a',
         },
         secondary: {
-            main: '#2979ff',
+            main: '#64b5f6',
         },
+        background: {
+            default: '#f1f1f1',
+        },
+        divider: 'rgba(0,0,0,0.08)',
+    },
+    typography: {
+        fontFamily: [
+            '"Source Sans Pro"',
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
+        fontWeightMedium: 600,
     },
     components: {
+        MuiAppBar: {
+            defaultProps: {
+                color: 'default',
+            },
+        },
         MuiTooltip: {
             defaultProps: {
                 arrow: true,

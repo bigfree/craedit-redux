@@ -41,7 +41,7 @@ const ContextMenu: FC<ContextMenuPropsType> = ({coordinates, handleClose}: Conte
                         component={'div'}
                         sx={{
                             pb: 0.5,
-                            fontSize: 15,
+                            fontSize: 14,
                             fontWeight: 'bold'
                         }}
                     >
@@ -75,39 +75,39 @@ const ContextMenu: FC<ContextMenuPropsType> = ({coordinates, handleClose}: Conte
                 <Divider sx={{
                     mb: 1
                 }}/>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleClose} dense={true}>
                     <ListItemIcon>
                         <Save/>
                     </ListItemIcon>
                     Ulozit
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleClose} dense={true}>
                     <ListItemIcon>
                         <Refresh/>
                     </ListItemIcon>
                     Obnovit
                 </MenuItem>
                 <Divider/>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleClose} dense={true}>
                     <ListItemIcon>
                         <Undo/>
                     </ListItemIcon>
                     Naspat
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleClose} dense={true}>
                     <ListItemIcon>
                         <Redo/>
                     </ListItemIcon>
                     Dopredu
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleClose} dense={true}>
                     <ListItemIcon>
                         <History/>
                     </ListItemIcon>
                     Zobrazit historiu
                 </MenuItem>
                 <Divider/>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={handleClose} dense={true}>
                     <ListItemIcon>
                         <FileUpload/>
                     </ListItemIcon>

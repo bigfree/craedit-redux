@@ -1,5 +1,5 @@
 import { FC, Fragment, useEffect } from "react";
-import { Box } from "@mui/material";
+import {Box, Paper} from "@mui/material";
 import FlowWorkspace from "../flowWorkspace";
 import { useAppDispatch } from "../../app/hooks";
 import { Outlet, useParams } from "react-router-dom";
@@ -66,14 +66,24 @@ const WorkSpacePage: FC = (): JSX.Element => {
 
     return (
         <Fragment>
-            <Box sx={{
-                flex: '1 1 100%',
-                position: 'relative',
-                display: 'flex',
-                flexWrap: 'nowrap',
-                alignItems: 'flex-start',
-                justifyItems: 'flex-start',
-            }}>
+            <Paper
+                sx={{
+                    flex: '1 1 100%',
+                    position: 'relative',
+                    display: 'flex',
+                    flexWrap: 'nowrap',
+                    alignItems: 'flex-start',
+                    justifyItems: 'flex-start',
+                    marginTop: 1,
+                    marginLeft: 1,
+                    marginRight: 1.5,
+                    marginBottom: 1.5,
+                    backgroundColor: '#ffffff',
+                    borderTopLeftRadius: 0,
+                    borderBottomLeftRadius: 0,
+                }}
+                elevation={2}
+            >
                 <Box sx={{
                     position: 'absolute',
                     top: 0,
@@ -86,7 +96,7 @@ const WorkSpacePage: FC = (): JSX.Element => {
 
                 <FlowWorkspace/>
                 <Outlet/>
-            </Box>
+            </Paper>
         </Fragment>
     );
 }

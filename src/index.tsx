@@ -1,18 +1,13 @@
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-
-import { ThemeProvider } from '@mui/material/styles';
-import { StrictMode } from 'react';
+// import "@fontsource/source-sans-pro";
+import {ThemeProvider} from '@mui/material/styles';
+import {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from "react-router-dom";
+import {Provider} from 'react-redux';
+import {BrowserRouter} from "react-router-dom";
 import App from './App';
-import { store } from './app/store';
-import './index.css';
+import {store} from './app/store';
 import * as serviceWorker from './serviceWorker';
-import { theme } from "./theme";
+import {theme} from "./theme";
 
 ReactDOM.render(
     <ThemeProvider theme={theme}>

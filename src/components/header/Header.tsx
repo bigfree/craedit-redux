@@ -10,6 +10,10 @@ const Header: FC = (): JSX.Element => {
         <Fragment>
             <AppBar
                 position={'static'}
+                sx={{
+                    backgroundColor: '#ffffff',
+                    zIndex: 999,
+                }}
             >
                 <Toolbar>
                     <Typography
@@ -19,7 +23,7 @@ const Header: FC = (): JSX.Element => {
                             flexGrow: 1
                         }}
                     >
-                        CRA Edit
+                        WFEditor
                     </Typography>
                 </Toolbar>
             </AppBar>

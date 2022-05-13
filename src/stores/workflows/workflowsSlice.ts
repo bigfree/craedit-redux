@@ -8,7 +8,7 @@ import { RootState } from "../../app/store";
 export type WorkflowsStateType = {
     loading: boolean;
     errors?: string;
-    status: STATE_STATUS.IDLE | STATE_STATUS.LOADING | STATE_STATUS.SUCCESS | STATE_STATUS.FAILED | STATE_STATUS.PENDING
+    status: STATE_STATUS
 }
 
 /**
