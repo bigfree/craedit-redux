@@ -8,17 +8,23 @@ import App from './App';
 import {store} from './app/store';
 import * as serviceWorker from './serviceWorker';
 import {theme} from "./theme";
+import {PersistGate} from "redux-persist/integration/react";
+import {persistStore} from "redux-persist";
+
+const persistor = persistStore(store);
 
 ReactDOM.render(
-    <ThemeProvider theme={theme}>
-        <StrictMode>
-            <Provider store={store}>
-                <BrowserRouter>
-                    <App/>
-                </BrowserRouter>
-            </Provider>
-        </StrictMode>
-    </ThemeProvider>,
+    <StrictMode>
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <ThemeProvider theme={theme}>
+                    <BrowserRouter>
+                        <App/>
+                    </BrowserRouter>
+                </ThemeProvider>
+            </PersistGate>
+        </Provider>
+    </StrictMode>,
     document.getElementById('root')
 );
 

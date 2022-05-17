@@ -1,11 +1,7 @@
-import { FC, Fragment } from 'react';
-import { Route, Routes } from "react-router-dom";
-import './App.css';
+import {FC, Fragment} from 'react';
+import {Route, Routes} from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
 import LayoutPage from "./components/pages/LayoutPage";
-import WorkSpacePage from "./components/pages/WorkSpacePage";
-import DetailDrawer from "./components/entityDetail/DetailDrawer";
-import { TransitionGroup } from 'react-transition-group';
 
 /**
  * App component
@@ -17,13 +13,6 @@ const App: FC = (): JSX.Element => {
             <Routes>
                 <Route path={'/'} element={<LayoutPage/>}>
                     <Route index element={<HomePage/>}/>
-                    <Route path={':workflowId'} element={<WorkSpacePage/>}>
-                        <Route path={':entityId'} element={(
-                            <TransitionGroup>
-                                <DetailDrawer/>
-                            </TransitionGroup>
-                        )}/>
-                    </Route>
                     <Route
                         path={'*'}
                         element={
