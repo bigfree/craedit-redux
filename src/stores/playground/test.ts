@@ -1,29 +1,37 @@
 import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
+import {PURGE} from "redux-persist/es/constants";
 
 type Test = {
-    testId: number,
+    testId: string,
     name: string,
     number?: number,
     isActive?: boolean,
 }
 
 const testAdapter = createEntityAdapter<Test>({
-    selectId: (test:Test) => test.testId
+    selectId: (test: Test) => test.testId
 });
 
 export const testSlice = createSlice({
     name: 'test',
     initialState: testAdapter.getInitialState(),
     reducers: {
-        testAdded: testAdapter.addOne,
+        testAdd: testAdapter.addOne,
+        testAddMany: testAdapter.addMany,
+        testRemoveAll: testAdapter.removeAll,
+    },
+    extraReducers: (builder) => {
+        builder.addCase(PURGE, (state) => {
+            testAdapter.removeAll(state);
+        })
     }
 });
 
 /**
  * Export actions
  */
-export const {testAdded} = testSlice.actions;
+export const {testAdd, testAddMany, testRemoveAll} = testSlice.actions;
 
 /**
  * Export selectors
