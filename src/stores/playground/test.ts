@@ -2,7 +2,7 @@ import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
 import {PURGE} from "redux-persist/es/constants";
 
-type Test = {
+export type Test = {
     testId: string,
     name: string,
     number?: number,
@@ -19,6 +19,8 @@ export const testSlice = createSlice({
     reducers: {
         testAdd: testAdapter.addOne,
         testAddMany: testAdapter.addMany,
+        testUpdateOne: testAdapter.updateOne,
+        testSetAll: testAdapter.setAll,
         testRemoveAll: testAdapter.removeAll,
     },
     extraReducers: (builder) => {
@@ -31,7 +33,7 @@ export const testSlice = createSlice({
 /**
  * Export actions
  */
-export const {testAdd, testAddMany, testRemoveAll} = testSlice.actions;
+export const {testAdd, testAddMany, testRemoveAll, testSetAll, testUpdateOne} = testSlice.actions;
 
 /**
  * Export selectors

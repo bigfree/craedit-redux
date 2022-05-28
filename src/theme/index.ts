@@ -1,15 +1,16 @@
 import {createTheme, ThemeOptions} from "@mui/material";
+import {blue, yellow} from "@mui/material/colors";
 
 const themeOptions: ThemeOptions = {
     palette: {
         primary: {
-            main: '#6a1b9a',
+            main: blue[500],
         },
         secondary: {
-            main: '#64b5f6',
+            main: yellow[500],
         },
         background: {
-            default: '#f1f1f1',
+            default: '#ffffff',
         },
         divider: 'rgba(0,0,0,0.08)',
     },
@@ -33,6 +34,14 @@ const themeOptions: ThemeOptions = {
             defaultProps: {
                 color: 'default',
             },
+            styleOverrides: {
+                root: ({theme}) => ({
+                    boxShadow: 'none',
+                    borderBottomWidth: 1,
+                    borderBottomStyle: 'solid',
+                    borderBottomColor: theme.palette.divider
+                })
+            }
         },
         MuiTooltip: {
             defaultProps: {

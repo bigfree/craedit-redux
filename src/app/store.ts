@@ -1,5 +1,6 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import testReducer from '../stores/playground/test';
+import WorkflowSlice from '../stores/workflows/workflowSlice';
 import {setupListeners} from "@reduxjs/toolkit/query";
 import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
@@ -8,6 +9,7 @@ import {persistReducer} from 'redux-persist';
 
 const reducers = combineReducers({
     test: testReducer,
+    workflow: WorkflowSlice,
 });
 
 const persistConfig = {
