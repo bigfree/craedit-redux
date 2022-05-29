@@ -10,10 +10,6 @@ const Header: FC = (): JSX.Element => {
         <Fragment>
             <AppBar
                 position={'static'}
-                sx={{
-                    backgroundColor: '#ffffff',
-                    zIndex: 999,
-                }}
             >
                 <Toolbar>
                     <Typography

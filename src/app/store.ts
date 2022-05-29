@@ -1,20 +1,38 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
-import testReducer from '../stores/playground/test';
 import WorkflowSlice from '../stores/workflows/workflowSlice';
+import TestSlice from '../stores/playground/testSlice';
 import {setupListeners} from "@reduxjs/toolkit/query";
-import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
 import {combineReducers} from 'redux';
 import {persistReducer} from 'redux-persist';
+import undoable, {UndoableOptions} from 'redux-undo';
+import {PersistConfig} from "redux-persist/es/types";
+import {CurriedGetDefaultMiddleware} from "@reduxjs/toolkit/dist/getDefaultMiddleware";
+import {UndoTransform} from "./storeUtils";
+
+const undoableOptions: UndoableOptions = {
+    limit: 20,
+    ignoreInitialState: true,
+    debug: true,
+};
 
 const reducers = combineReducers({
-    test: testReducer,
+    test: undoable(TestSlice, {
+        ...undoableOptions,
+        undoType: 'TEST_UNDO',
+        redoType: 'TEST_REDO',
+    }),
     workflow: WorkflowSlice,
 });
 
-const persistConfig = {
+const persistConfig: PersistConfig<any> = {
     key: 'root',
+    version: 1,
     storage,
+    debug: true,
+    timeout: 0,
+    // transforms: [UndoTransform],
+    stateReconciler: (state: any) => state,
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -25,7 +43,10 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 export const store = configureStore({
     reducer: persistedReducer,
     devTools: process.env.NODE_ENV !== 'production',
-    middleware: [thunk],
+    middleware: (getDefaultMiddleware: CurriedGetDefaultMiddleware) => getDefaultMiddleware({
+        immutableCheck: false,
+        serializableCheck: false,
+    }),
 });
 
 setupListeners(store.dispatch);

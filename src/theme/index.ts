@@ -1,5 +1,5 @@
 import {createTheme, ThemeOptions} from "@mui/material";
-import {blue, yellow} from "@mui/material/colors";
+import {blue, indigo, yellow} from "@mui/material/colors";
 
 const themeOptions: ThemeOptions = {
     palette: {
@@ -32,14 +32,13 @@ const themeOptions: ThemeOptions = {
     components: {
         MuiAppBar: {
             defaultProps: {
-                color: 'default',
+                color: 'primary',
             },
             styleOverrides: {
-                root: ({theme}) => ({
+                root: () => ({
+                    backgroundColor: indigo['A700'],
                     boxShadow: 'none',
-                    borderBottomWidth: 1,
-                    borderBottomStyle: 'solid',
-                    borderBottomColor: theme.palette.divider
+                    zIndex: 999
                 })
             }
         },
