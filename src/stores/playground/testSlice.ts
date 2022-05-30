@@ -47,6 +47,7 @@ export const {testAddOne, testAddMany, testRemoveAll, testSetAll, testUpdateOne}
 /** Export adapter selectors */
 export const {
     selectAll: selectAllTest,
+    selectById: selectTestById,
 } = testAdapter.getSelectors<RootState>((state: RootState) => state.test.present);
 
 /** Export reducer */

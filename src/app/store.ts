@@ -20,6 +20,7 @@ const reducers = combineReducers({
         ...undoableOptions,
         undoType: 'TEST_UNDO',
         redoType: 'TEST_REDO',
+        clearHistoryType: 'TEST_CLEAR_HISTORY',
     }),
     workflow: WorkflowSlice,
 });

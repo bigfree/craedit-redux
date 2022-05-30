@@ -5,6 +5,7 @@ import {workflowAddOne, workflowRemoveAll} from "../../stores/workflows/workflow
 import {nanoid} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
 import {Divider} from "@mui/material";
+import EditTestNodeForm from "../playground/editTestNodeForm";
 
 const mapStateToProps = (state: RootState) => ({
     testNodes: selectAllTest,
@@ -21,7 +22,8 @@ const mapDispatchToProps = {
     testRemoveAll,
     workflowAddOne,
     doUndo: () => ({type: 'TEST_UNDO'}),
-    doRedo: () => ({type: 'TEST_REDO'})
+    doRedo: () => ({type: 'TEST_REDO'}),
+    testClearHistory: () => ({type: 'TEST_CLEAR_HISTORY'}),
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -47,6 +49,7 @@ const PlaygroundPage: FC<PropsFromRedux> = (
         workflowAddOne,
         doUndo,
         doRedo,
+        testClearHistory,
     }: PropsFromRedux
 ): JSX.Element => {
     const testNodesSelector = useSelector(testNodes);
@@ -96,18 +99,6 @@ const PlaygroundPage: FC<PropsFromRedux> = (
         });
     }
 
-    /**
-     * Update entity ID
-     */
-    const updateTestEntity = () => {
-        testUpdateOne({
-            id: 'UNUmhRVceh9AC2SW66Um-',
-            changes: {
-                id: 'manual update'
-            }
-        });
-    }
-
     const handleClearState = () => {
         testRemoveAll();
     }
@@ -117,10 +108,10 @@ const PlaygroundPage: FC<PropsFromRedux> = (
             <div style={{padding: '15px 5px', borderBottom: '1px solid black'}}>
                 <button onClick={showEntities}>Show test entities on console</button>
                 <button onClick={handleOnClick}>Add test object to state</button>
-                <button onClick={updateTestEntity}>Update test entity</button>
                 &nbsp;&nbsp;|&nbsp;&nbsp;
                 <button onClick={handleClearState}>Remove test nodes from store</button>
                 <button onClick={() => workflowRemoveAll()}>Remove workflow nodes from store</button>
+                <button onClick={testClearHistory}>Clear history</button>
                 &nbsp;&nbsp;|&nbsp;&nbsp;
                 <button
                     onClick={doUndo}
@@ -133,8 +124,17 @@ const PlaygroundPage: FC<PropsFromRedux> = (
                 >redo
                 </button>
             </div>
-            <div>
-                Add update test
+            <div style={{
+                padding: '15px 0',
+                borderBottom: '1px solid black',
+                display: 'flex'
+            }}>
+                <div style={{flex: 1, borderRight: '1px solid black', padding: '5px'}}>
+                    <EditTestNodeForm/>
+                </div>
+                <div style={{flex: 1, padding: '5px'}}>
+                    aaaa
+                </div>
             </div>
             <div>
                 <p><strong>Test nodes:</strong></p>
