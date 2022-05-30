@@ -8,7 +8,6 @@ import {persistReducer} from 'redux-persist';
 import undoable, {UndoableOptions} from 'redux-undo';
 import {PersistConfig} from "redux-persist/es/types";
 import {CurriedGetDefaultMiddleware} from "@reduxjs/toolkit/dist/getDefaultMiddleware";
-import {UndoTransform} from "./storeUtils";
 
 const undoableOptions: UndoableOptions = {
     limit: 20,
@@ -31,7 +30,6 @@ const persistConfig: PersistConfig<any> = {
     storage,
     debug: true,
     timeout: 0,
-    // transforms: [UndoTransform],
     stateReconciler: (state: any) => state,
 };
 
