@@ -6,6 +6,7 @@ import {nanoid} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
 import {Divider} from "@mui/material";
 import EditTestNodeForm from "../playground/editTestNodeForm";
+import AddTestNodeForm from "../playground/addTestNodeForm";
 
 const mapStateToProps = (state: RootState) => ({
     testNodes: selectAllTest,
@@ -133,7 +134,7 @@ const PlaygroundPage: FC<PropsFromRedux> = (
                     <EditTestNodeForm/>
                 </div>
                 <div style={{flex: 1, padding: '5px'}}>
-                    aaaa
+                    <AddTestNodeForm/>
                 </div>
             </div>
             <div>

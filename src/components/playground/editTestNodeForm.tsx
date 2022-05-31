@@ -27,9 +27,15 @@ const EditTestNodeForm: FC<PropsFromRedux> = (props): JSX.Element => {
 
     const formOnSubmit = (event: SyntheticEvent) => {
         event.preventDefault();
+        const testNode = findTestNodeById(store.getState(), testNodeId);
 
-        if (!findTestNodeById(store.getState(), testNodeId)) {
+        if (!testNode) {
             console.log(`Test node with id: ${testNodeId} not exist`);
+            return;
+        }
+
+        if (testNodeName === testNode.name) {
+            console.log(`Test node with id: ${testNodeId} is same name!`);
             return;
         }
 

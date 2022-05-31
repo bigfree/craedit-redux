@@ -1,4 +1,4 @@
-import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
+import {configureStore} from '@reduxjs/toolkit';
 import WorkflowSlice from '../stores/workflows/workflowSlice';
 import TestSlice from '../stores/playground/testSlice';
 import {setupListeners} from "@reduxjs/toolkit/query";
@@ -8,9 +8,10 @@ import {persistReducer} from 'redux-persist';
 import undoable, {UndoableOptions} from 'redux-undo';
 import {PersistConfig} from "redux-persist/es/types";
 import {CurriedGetDefaultMiddleware} from "@reduxjs/toolkit/dist/getDefaultMiddleware";
+import {logger} from "./middleware";
 
 const undoableOptions: UndoableOptions = {
-    limit: 20,
+    limit: 100,
     ignoreInitialState: true,
     debug: true,
 };
@@ -45,11 +46,11 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware: CurriedGetDefaultMiddleware) => getDefaultMiddleware({
         immutableCheck: false,
         serializableCheck: false,
-    }),
+    }).concat(logger),
 });
 
 setupListeners(store.dispatch);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
+// export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

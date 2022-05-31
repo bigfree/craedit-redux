@@ -1,11 +1,12 @@
-import {createEntityAdapter, createSelector, createSlice, EntityState} from "@reduxjs/toolkit";
+import {createEntityAdapter, createSlice, EntityState} from "@reduxjs/toolkit";
 import {PURGE} from "redux-persist/es/constants";
 import {RootState} from "../../app/store";
-import {ActionCreators} from "redux-undo";
 
 /** Test state type */
 export type TestState = {
     state: string;
+    date?: Date;
+    action?: string;
 }
 
 /** Test entity type */
@@ -36,7 +37,6 @@ const testSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(PURGE, (state: TestStateWithAdapter) => {
             testAdapter.removeAll(state);
-            ActionCreators.clearHistory();
         });
     }
 });
