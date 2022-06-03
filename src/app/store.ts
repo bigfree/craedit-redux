@@ -1,5 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 import WorkflowSlice from '../stores/workflows/workflowSlice';
+import TabNavigationSlice from '../stores/tabNavigation/tabNavigationSlice';
 import TestSlice from '../stores/playground/testSlice';
 import {setupListeners} from "@reduxjs/toolkit/query";
 import storage from 'redux-persist/lib/storage';
@@ -8,7 +9,6 @@ import {persistReducer} from 'redux-persist';
 import undoable, {UndoableOptions} from 'redux-undo';
 import {PersistConfig} from "redux-persist/es/types";
 import {CurriedGetDefaultMiddleware} from "@reduxjs/toolkit/dist/getDefaultMiddleware";
-import {logger} from "./middleware";
 
 const undoableOptions: UndoableOptions = {
     limit: 100,
@@ -23,6 +23,7 @@ const reducers = combineReducers({
         redoType: 'TEST_REDO',
         clearHistoryType: 'TEST_CLEAR_HISTORY',
     }),
+    tabNavigation: TabNavigationSlice,
     workflow: WorkflowSlice,
 });
 
@@ -32,7 +33,7 @@ const persistConfig: PersistConfig<any> = {
     storage,
     debug: true,
     timeout: 0,
-    stateReconciler: (state: any) => state,
+    stateReconciler: (state: RootState) => state,
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -46,7 +47,7 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware: CurriedGetDefaultMiddleware) => getDefaultMiddleware({
         immutableCheck: false,
         serializableCheck: false,
-    }).concat(logger),
+    }), //.concat(logger),
 });
 
 setupListeners(store.dispatch);
