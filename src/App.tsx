@@ -15,8 +15,7 @@ const App: FC = (): JSX.Element => {
             <Routes>
                 <Route element={<LayoutPage/>}>
                     {/*Workflow page*/}
-                    <Route path={'/'}>
-                        <Route index element={<HomePage/>}/>
+                    <Route path={'/'} element={<HomePage/>}>
                         <Route path={':workflowId'} element={<WorkflowPage/>}/>
                     </Route>
                     {/*Playground page*/}

@@ -6,7 +6,7 @@ import {RootState} from "../../app/store";
  * Tab navigation state
  */
 export type TabNavigationState = {
-    state?: string;
+    status?: string;
 }
 
 /**
@@ -25,7 +25,7 @@ export type TabNavigationStateWithAdapter = EntityState<TabEntity> & TabNavigati
  * Tab navigation adapter
  */
 const tabNavigationAdapter = createEntityAdapter<TabEntity>({
-    selectId: (tab: TabEntity) => tab.slug,
+    selectId: (tab: TabEntity) => tab.id,
 });
 
 /**
@@ -34,11 +34,12 @@ const tabNavigationAdapter = createEntityAdapter<TabEntity>({
 const tabNavigationSlice = createSlice({
     name: 'tabNavigation',
     initialState: tabNavigationAdapter.getInitialState<TabNavigationState>({
-        state: 'idle'
+        status: 'idle',
     }),
     reducers: {
         tabAddOne: tabNavigationAdapter.addOne,
         tabUpdateOne: tabNavigationAdapter.updateOne,
+        tabSetAll: tabNavigationAdapter.setAll,
         tabRemoveOne: tabNavigationAdapter.removeOne,
         tabRemoveAll: tabNavigationAdapter.removeAll,
     },
@@ -55,6 +56,7 @@ const tabNavigationSlice = createSlice({
 export const {
     tabAddOne,
     tabUpdateOne,
+    tabSetAll,
     tabRemoveOne,
     tabRemoveAll,
 } = tabNavigationSlice.actions;
