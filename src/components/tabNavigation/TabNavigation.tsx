@@ -1,17 +1,27 @@
 import {FC, Fragment, useEffect} from "react";
-import {selectAllTabs, TabEntity, tabSetAll} from "../../stores/tabNavigation/tabNavigationSlice";
+import {
+    selectAllTabs,
+    selectTabBySlug,
+    TabEntity,
+    tabSetAll,
+    tabUpdateMany
+} from "../../stores/tabNavigation/tabNavigationSlice";
 import {connect, ConnectedProps, useSelector} from "react-redux";
 import {Box} from "@mui/material";
 import LinkTab from "./LinkTab";
 import {nanoid} from "@reduxjs/toolkit";
 import {TabsUnstyled} from "@mui/base";
+import {useLocation} from "react-router-dom";
+import {RootState, store} from "../../app/store";
 
 const mapStateToProps = () => ({
-    selectAllTabs
+    selectAllTabs,
+    selectTabBySlug,
 });
 
 const mapDispatchToProps = {
-    tabSetAll
+    tabSetAll,
+    tabUpdateMany
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -25,7 +35,14 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
  * @constructor
  */
 const TabNavigation: FC<PropsFromRedux> = ({selectAllTabs, tabSetAll}): JSX.Element => {
+    const location = useLocation();
     const selectAllTabsSelector = useSelector(selectAllTabs);
+
+    useEffect(() => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        const activeTab: TabEntity = selectTabBySlug(store.getState(), location.pathname);
+        console.log(activeTab.id);
+    }, [location]);
 
     /** Initial tabs for testing */
     useEffect(() => {
@@ -56,7 +73,7 @@ const TabNavigation: FC<PropsFromRedux> = ({selectAllTabs, tabSetAll}): JSX.Elem
             display: 'flex',
             alignItems: 'center',
             alignSelf: 'end',
-            ml: 2
+            ml: 3
         }}>
             {selectAllTabsSelector.map(({id}: TabEntity, index: number) => (
                 <LinkTab key={index} tabId={id}/>

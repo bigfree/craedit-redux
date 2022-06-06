@@ -4,7 +4,7 @@ import {connect, ConnectedProps} from "react-redux";
 import {selectTabById, TabEntity} from "../../stores/tabNavigation/tabNavigationSlice";
 import {Link} from "@mui/material";
 import {Link as RouterLink} from "react-router-dom"
-import {blue, indigo} from "@mui/material/colors";
+import {blue} from "@mui/material/colors";
 import LinkTabDelete from "./LinkTabDelete";
 
 type LinkTypeOwnProps = {
@@ -45,13 +45,13 @@ const LinkTab: FC<PropsFromRedux> = ({tabId, selectTabById}: PropsFromRedux): JS
                 pl: 1.5,
                 pr: 0.5,
                 py: 1.2,
-                backgroundColor: tabSelector.active ? indigo['800'] : blue['A700'],
-                borderTopLeftRadius: '.5rem',
-                borderTopRightRadius: '.5rem',
+                backgroundColor: tabSelector.active ? blue['A400'] : blue['A700'],
+                borderTopLeftRadius: '.25rem',
+                borderTopRightRadius: '.25rem',
                 mr: 1,
                 borderWidth: '1px',
                 borderStyle: 'solid',
-                borderColor: tabSelector.active ? indigo['800'] : blue['A700'],
+                borderColor: tabSelector.active ? blue['700'] : blue['800'],
                 borderBottom: 0,
                 color: '#fff',
                 textDecoration: 'none',
