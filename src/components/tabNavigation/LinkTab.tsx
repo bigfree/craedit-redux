@@ -12,7 +12,7 @@ type LinkTypeOwnProps = {
 }
 
 const mapStateToProps = (state: RootState, ownProps: LinkTypeOwnProps) => ({
-    selectTabById,
+    tabSelector: selectTabById(state, ownProps.tabId),
     ...ownProps
 });
 
@@ -23,15 +23,9 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 /**
  * LinkTab component
  * @param tabId
- * @param selectTabById
  * @constructor
  */
-const LinkTab: FC<PropsFromRedux> = ({tabId, selectTabById}: PropsFromRedux): JSX.Element => {
-    const [tabSelector, setTabSelector] = useState<TabEntity>();
-
-    useEffect(() => {
-        setTabSelector(selectTabById(store.getState(), tabId));
-    }, [tabId]);
+const LinkTab: FC<PropsFromRedux> = ({tabSelector}: PropsFromRedux): JSX.Element => {
 
     if (!tabSelector) {
         return <Fragment></Fragment>;

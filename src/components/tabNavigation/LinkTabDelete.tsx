@@ -11,9 +11,9 @@ type LinkDeleteTypeOwnProps = {
 }
 
 const mapStateToProps = (state: RootState, ownProps: LinkDeleteTypeOwnProps) => ({
-    selectTabById,
+    selectTabById: selectTabById(state, ownProps.tabId),
     ...ownProps
-});
+})
 
 const connector = connect(mapStateToProps, {
     tabRemoveOne
@@ -29,25 +29,20 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
  * @constructor
  */
 const LinkTabDelete: FC<PropsFromRedux> = ({tabId, tabRemoveOne, selectTabById}: PropsFromRedux): JSX.Element => {
-    const [tabSelector, setTabSelector] = useState<TabEntity>();
     const location = useLocation();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        setTabSelector(selectTabById(store.getState(), tabId));
-    }, [tabId]);
 
     const handleOnClick = (event: SyntheticEvent) => {
         event.preventDefault();
         event.stopPropagation();
 
-        if (!tabSelector) {
+        if (!selectTabById) {
             return;
         }
 
         tabRemoveOne(tabId);
 
-        if (location.pathname === tabSelector.slug) {
+        if (location.pathname === selectTabById.slug) {
             navigate('/', {replace: true});
         }
     }

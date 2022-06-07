@@ -14,10 +14,12 @@ import {TabsUnstyled} from "@mui/base";
 import {useLocation} from "react-router-dom";
 import {RootState, store} from "../../app/store";
 
-const mapStateToProps = () => ({
-    selectAllTabs,
-    selectTabBySlug,
-});
+const mapStateToProps = (state: RootState) => {
+    return {
+        selectAllTabs,
+        selectTabBySlug,
+    };
+};
 
 const mapDispatchToProps = {
     tabSetAll,
@@ -38,11 +40,11 @@ const TabNavigation: FC<PropsFromRedux> = ({selectAllTabs, tabSetAll}): JSX.Elem
     const location = useLocation();
     const selectAllTabsSelector = useSelector(selectAllTabs);
 
-    useEffect(() => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        const activeTab: TabEntity = selectTabBySlug(store.getState(), location.pathname);
-        console.log(activeTab.id);
-    }, [location]);
+    // useEffect(() => {
+    //     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    //     const activeTab: TabEntity = selectTabBySlug(store.getState(), location.pathname);
+    //     console.log(activeTab.id);
+    // }, [location]);
 
     /** Initial tabs for testing */
     useEffect(() => {
