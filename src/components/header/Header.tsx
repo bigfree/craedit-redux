@@ -1,5 +1,6 @@
 import { FC, Fragment } from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
+import TabNavigation from "../tabNavigation/TabNavigation";
 
 /**
  * Header component
@@ -10,21 +11,15 @@ const Header: FC = (): JSX.Element => {
         <Fragment>
             <AppBar
                 position={'static'}
-                sx={{
-                    backgroundColor: '#ffffff',
-                    zIndex: 999,
-                }}
             >
                 <Toolbar>
                     <Typography
                         variant={'h6'}
                         component={'div'}
-                        sx={{
-                            flexGrow: 1
-                        }}
                     >
                         WFEditor
                     </Typography>
+                    <TabNavigation/>
                 </Toolbar>
             </AppBar>
         </Fragment>

@@ -1,11 +1,9 @@
-import { FC, Fragment } from 'react';
-import { Route, Routes } from "react-router-dom";
-import './App.css';
+import {FC, Fragment} from 'react';
+import {Route, Routes} from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
 import LayoutPage from "./components/pages/LayoutPage";
-import WorkSpacePage from "./components/pages/WorkSpacePage";
-import DetailDrawer from "./components/entityDetail/DetailDrawer";
-import { TransitionGroup } from 'react-transition-group';
+import PlaygroundPage from "./components/pages/PlaygroundPage";
+import WorkflowPage from "./components/pages/WorkflowPage";
 
 /**
  * App component
@@ -15,15 +13,14 @@ const App: FC = (): JSX.Element => {
     return (
         <Fragment>
             <Routes>
-                <Route path={'/'} element={<LayoutPage/>}>
-                    <Route index element={<HomePage/>}/>
-                    <Route path={':workflowId'} element={<WorkSpacePage/>}>
-                        <Route path={':entityId'} element={(
-                            <TransitionGroup>
-                                <DetailDrawer/>
-                            </TransitionGroup>
-                        )}/>
+                <Route element={<LayoutPage/>}>
+                    {/*Workflow page*/}
+                    <Route path={'/'} element={<HomePage/>}>
+                        <Route path={':workflowId'} element={<WorkflowPage/>}/>
                     </Route>
+                    {/*Playground page*/}
+                    <Route path={'/playground'} element={<PlaygroundPage/>}/>
+                    {/*404 page*/}
                     <Route
                         path={'*'}
                         element={

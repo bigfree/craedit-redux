@@ -1,4 +1,4 @@
-import { FlowElement } from "react-flow-renderer";
+import { Node } from "react-flow-renderer";
 
 /**
  * State status ENUM
@@ -82,7 +82,7 @@ export type EntityDataType = EntitySyncPointType & EntityConditionPointType & En
 /**
  * Workflow entity
  */
-export type WFEntityType = FlowElement<EntityDataType>;
+export type WFEntityType = Node<EntityDataType>;
 
 /**
  * Workflow element

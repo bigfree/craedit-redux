@@ -1,25 +1,31 @@
-// import "@fontsource/source-sans-pro";
 import {ThemeProvider} from '@mui/material/styles';
 import {StrictMode} from 'react';
-import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {BrowserRouter} from "react-router-dom";
 import App from './App';
 import {store} from './app/store';
 import * as serviceWorker from './serviceWorker';
 import {theme} from "./theme";
+import {PersistGate} from "redux-persist/integration/react";
+import {persistStore} from "redux-persist";
+import {createRoot} from "react-dom/client";
 
-ReactDOM.render(
-    <ThemeProvider theme={theme}>
-        <StrictMode>
-            <Provider store={store}>
-                <BrowserRouter>
-                    <App/>
-                </BrowserRouter>
-            </Provider>
-        </StrictMode>
-    </ThemeProvider>,
-    document.getElementById('root')
+const persistor = persistStore(store);
+const container = document.getElementById('root');
+const root = createRoot(container!);
+
+root.render(
+    <StrictMode>
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <ThemeProvider theme={theme}>
+                    <BrowserRouter>
+                        <App/>
+                    </BrowserRouter>
+                </ThemeProvider>
+            </PersistGate>
+        </Provider>
+    </StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -17,6 +17,7 @@ const LayoutPage: FC = (): JSX.Element => {
                 <Box sx={{
                     flex: '1 1 auto',
                     display: 'flex',
+                    flexFlow: 'column',
                     alignItems: 'stretch',
                 }}>
                     <Outlet/>

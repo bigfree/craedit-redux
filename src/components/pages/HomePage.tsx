@@ -1,8 +1,12 @@
-import { FC } from "react";
+import {FC, Fragment} from "react";
+import {Outlet} from "react-router-dom";
 
 const HomePage: FC = (): JSX.Element => {
     return (
-        <h1>Home</h1>
+        <Fragment>
+            <h1>Layout Home page</h1>
+            <Outlet/>
+        </Fragment>
     );
 }
 

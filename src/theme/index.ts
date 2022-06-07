@@ -1,15 +1,16 @@
 import {createTheme, ThemeOptions} from "@mui/material";
+import {blue, indigo, yellow} from "@mui/material/colors";
 
 const themeOptions: ThemeOptions = {
     palette: {
         primary: {
-            main: '#6a1b9a',
+            main: blue[500],
         },
         secondary: {
-            main: '#64b5f6',
+            main: yellow[500],
         },
         background: {
-            default: '#f1f1f1',
+            default: '#ffffff',
         },
         divider: 'rgba(0,0,0,0.08)',
     },
@@ -31,8 +32,15 @@ const themeOptions: ThemeOptions = {
     components: {
         MuiAppBar: {
             defaultProps: {
-                color: 'default',
+                color: 'primary',
             },
+            styleOverrides: {
+                root: () => ({
+                    backgroundColor: indigo['A700'],
+                    boxShadow: 'none',
+                    zIndex: 999
+                })
+            }
         },
         MuiTooltip: {
             defaultProps: {
