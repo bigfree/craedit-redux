@@ -1,6 +1,6 @@
 import {FC, Fragment} from "react";
 import {connect, ConnectedProps, useSelector} from "react-redux";
-import {selectAllTest, testAddOne, testRemoveAll, testUpdateOne} from "../../stores/playground/testSlice";
+import {selectAllTest, testAddOne, testRemoveAll, testSetAll, testUpdateOne} from "../../stores/playground/testSlice";
 import {workflowAddOne, workflowRemoveAll} from "../../stores/workflows/workflowSlice";
 import {nanoid} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store";
@@ -22,9 +22,11 @@ const mapDispatchToProps = {
     testUpdateOne,
     testRemoveAll,
     workflowAddOne,
+    testSetAll,
     doUndo: () => ({type: 'TEST_UNDO'}),
     doRedo: () => ({type: 'TEST_REDO'}),
     testClearHistory: () => ({type: 'TEST_CLEAR_HISTORY'}),
+    fetchEntities: () => ({type: 'FETCH_ALL_ENTITIES'})
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -51,6 +53,7 @@ const PlaygroundPage: FC<PropsFromRedux> = (
         doUndo,
         doRedo,
         testClearHistory,
+        fetchEntities,
     }: PropsFromRedux
 ): JSX.Element => {
     const testNodesSelector = useSelector(testNodes);
@@ -107,6 +110,7 @@ const PlaygroundPage: FC<PropsFromRedux> = (
     return (
         <Fragment>
             <div style={{padding: '15px 5px', borderBottom: '1px solid black'}}>
+                <button onClick={() => fetchEntities()}>Fetch all from API</button>
                 <button onClick={showEntities}>Show test entities on console</button>
                 <button onClick={handleOnClick}>Add test object to state</button>
                 &nbsp;&nbsp;|&nbsp;&nbsp;

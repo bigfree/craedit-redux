@@ -8,7 +8,14 @@ import {combineReducers} from 'redux';
 import {persistReducer} from 'redux-persist';
 import undoable, {UndoableOptions} from 'redux-undo';
 import {PersistConfig} from "redux-persist/es/types";
-import {CurriedGetDefaultMiddleware} from "@reduxjs/toolkit/dist/getDefaultMiddleware";
+import {CurriedGetDefaultMiddleware} from '@reduxjs/toolkit/dist/getDefaultMiddleware';
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from "../sagas/playground";
+
+/**
+ * Initial saga middleware
+ */
+const sagaMiddleware = createSagaMiddleware();
 
 const undoableOptions: UndoableOptions = {
     limit: 100,
@@ -47,8 +54,11 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware: CurriedGetDefaultMiddleware) => getDefaultMiddleware({
         immutableCheck: false,
         serializableCheck: false,
-    }), //.concat(logger),
+        thunk: false
+    }).concat([sagaMiddleware]),
 });
+
+sagaMiddleware.run(rootSaga);
 
 setupListeners(store.dispatch);
 

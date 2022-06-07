@@ -1,4 +1,12 @@
-import {createEntityAdapter, createSelector, createSlice, EntityState} from "@reduxjs/toolkit";
+import {
+    createEntityAdapter,
+    createSelector,
+    createSlice,
+    current, Draft,
+    EntityId,
+    EntityState,
+    original, PayloadAction
+} from "@reduxjs/toolkit";
 import {PURGE} from "redux-persist/es/constants";
 import {RootState} from "../../app/store";
 
@@ -43,6 +51,15 @@ const tabNavigationSlice = createSlice({
         tabSetAll: tabNavigationAdapter.setAll,
         tabRemoveOne: tabNavigationAdapter.removeOne,
         tabRemoveAll: tabNavigationAdapter.removeAll,
+        tabSetActive: (state: Draft<TabNavigationStateWithAdapter>, data: PayloadAction<string>) => {
+            Object.values(state.entities).map((tab: TabEntity | undefined) => {
+                if (typeof tab === 'undefined') {
+                    return;
+                }
+
+                tab.active = data.payload === tab.slug;
+            });
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(PURGE, (state: TabNavigationStateWithAdapter) => {
@@ -50,28 +67,6 @@ const tabNavigationSlice = createSlice({
         });
     }
 });
-
-/**
- * Select by slug selector
- */
-// export const selectTabBySlug = createSelector(
-//     [
-//         (state: RootState) => state.tabNavigation,
-//         (state: RootState, slug: string) => slug,
-//     ],
-//     (tabs: TabEntity[], slug: string) => {
-//         return tabs.filter((tab: TabEntity) => {
-//             return slug === tab.slug;
-//         });
-//     }
-// );
-
-// const selectOrganizationName = (id: string): Return =>
-//     createSelector(
-//         [(state: RootState) => organizationSelectors.selectById(state, id)],
-//         (organization) => organization?.name
-//     );
-
 
 /**
  * Export tab navigation actions
@@ -83,21 +78,29 @@ export const {
     tabSetAll,
     tabRemoveOne,
     tabRemoveAll,
+    tabSetActive,
 } = tabNavigationSlice.actions;
 
 /**
  * Export adapter selectors
  */
 export const {
+    selectEntities: selectAllTabEntities,
     selectAll: selectAllTabs,
     selectById: selectTabById,
 } = tabNavigationAdapter.getSelectors<RootState>((state: RootState) => state.tabNavigation);
 
-export const selectTabBySlug = createSelector(selectAllTabs, (state: any, slug: string) => slug, (tabs: TabEntity[], slug) => {
-    const tab = tabs.filter((tab: TabEntity) => {
-        return slug === tab.slug;
-    });
-    return tab[0];
+/**
+ * Select tab by slug
+ */
+export const selectTabBySlug = createSelector(
+    selectAllTabs, 
+    (state: TabNavigationStateWithAdapter, slug: string) => slug,
+    (tabs: TabEntity[], slug: string) => {
+        const tab = tabs.filter((tab: TabEntity) => {
+            return slug === tab.slug;
+        });
+        return tab[0];
 });
 
 /**

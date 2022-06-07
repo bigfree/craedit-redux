@@ -4,9 +4,8 @@ import {RootState} from "../../app/store";
 
 /** Test state type */
 export type TestState = {
-    state: string;
-    date?: Date;
-    action?: string;
+    loading: boolean;
+    error: string | null;
 }
 
 /** Test entity type */
@@ -25,7 +24,8 @@ const testAdapter = createEntityAdapter<TestEntity>({
 const testSlice = createSlice({
     name: 'test',
     initialState: testAdapter.getInitialState<TestState>({
-        state: 'idle'
+        loading: false,
+        error: null,
     }),
     reducers: {
         testAddOne: testAdapter.addOne,

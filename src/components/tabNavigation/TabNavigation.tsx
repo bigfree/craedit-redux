@@ -3,6 +3,7 @@ import {
     selectAllTabs,
     selectTabBySlug,
     TabEntity,
+    tabSetActive,
     tabSetAll,
     tabUpdateMany
 } from "../../stores/tabNavigation/tabNavigationSlice";
@@ -11,10 +12,9 @@ import {Box} from "@mui/material";
 import LinkTab from "./LinkTab";
 import {nanoid} from "@reduxjs/toolkit";
 import {TabsUnstyled} from "@mui/base";
-import {useLocation} from "react-router-dom";
-import {RootState, store} from "../../app/store";
+import {useParams} from "react-router-dom";
 
-const mapStateToProps = (state: RootState) => {
+const mapStateToProps = () => {
     return {
         selectAllTabs,
         selectTabBySlug,
@@ -23,7 +23,8 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = {
     tabSetAll,
-    tabUpdateMany
+    tabUpdateMany,
+    tabSetActive
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -34,37 +35,38 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
  * Tab navigation component
  * @param selectAllTabs
  * @param tabSetAll
+ * @param tabRemoveAllActive
  * @constructor
  */
-const TabNavigation: FC<PropsFromRedux> = ({selectAllTabs, tabSetAll}): JSX.Element => {
-    const location = useLocation();
+const TabNavigation: FC<PropsFromRedux> = ({selectAllTabs, tabSetAll, tabSetActive}): JSX.Element => {
+    const params = useParams<{ workflowId: string }>();
     const selectAllTabsSelector = useSelector(selectAllTabs);
-
-    // useEffect(() => {
-    //     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    //     const activeTab: TabEntity = selectTabBySlug(store.getState(), location.pathname);
-    //     console.log(activeTab.id);
-    // }, [location]);
 
     /** Initial tabs for testing */
     useEffect(() => {
-        tabSetAll([{
-            id: nanoid(),
-            name: 'test name',
-            active: true,
-            slug: '/test'
-        }, {
-            id: nanoid(),
-            name: 'test name 2',
-            active: false,
-            slug: '/test2'
-        }, {
-            id: nanoid(),
-            name: 'test name 3',
-            active: false,
-            slug: '/test3'
-        }]);
+        if (0 === selectAllTabsSelector.length) {
+            tabSetAll([{
+                id: nanoid(),
+                name: 'test name',
+                active: false,
+                slug: 'test'
+            }, {
+                id: nanoid(),
+                name: 'test name 2',
+                active: false,
+                slug: 'test2'
+            }, {
+                id: nanoid(),
+                name: 'Playground',
+                active: false,
+                slug: 'playground'
+            }]);
+        }
     }, []);
+
+    useEffect(() => {
+        tabSetActive(params?.workflowId ?? '');
+    }, [params]);
 
     if (0 === selectAllTabsSelector.length) {
         return <Fragment></Fragment>
