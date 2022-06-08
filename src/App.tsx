@@ -1,6 +1,6 @@
 import {FC, Fragment} from 'react';
 import {Route, Routes} from "react-router-dom";
-import HomePage from "./components/pages/HomePage";
+import WorkflowLayoutPage from "./components/pages/WorkflowLayoutPage";
 import LayoutPage from "./components/pages/LayoutPage";
 import PlaygroundPage from "./components/pages/PlaygroundPage";
 import WorkflowPage from "./components/pages/WorkflowPage";
@@ -15,7 +15,7 @@ const App: FC = (): JSX.Element => {
             <Routes>
                 <Route element={<LayoutPage/>}>
                     {/*Workflow page*/}
-                    <Route path={'/'} element={<HomePage/>}>
+                    <Route path={'/'} element={<WorkflowLayoutPage/>}>
                         <Route path={':workflowId'} element={<WorkflowPage/>}/>
                     </Route>
                     {/*Playground page*/}

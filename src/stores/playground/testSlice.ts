@@ -1,4 +1,4 @@
-import {createEntityAdapter, createSlice, EntityState} from "@reduxjs/toolkit";
+import {createEntityAdapter, createSlice, Draft, EntityState, PayloadAction} from "@reduxjs/toolkit";
 import {PURGE} from "redux-persist/es/constants";
 import {RootState} from "../../app/store";
 
@@ -33,6 +33,12 @@ const testSlice = createSlice({
         testUpdateOne: testAdapter.updateOne,
         testSetAll: testAdapter.setAll,
         testRemoveAll: testAdapter.removeAll,
+        setLoading: (state: Draft<TestStateWithAdapter>, data: PayloadAction<boolean>) => {
+            state.loading = data.payload;
+        },
+        setError: (state: Draft<TestStateWithAdapter>, data: PayloadAction<string>) => {
+            state.error = data.payload;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(PURGE, (state: TestStateWithAdapter) => {
@@ -42,7 +48,14 @@ const testSlice = createSlice({
 });
 
 /** Export actions */
-export const {testAddOne, testAddMany, testRemoveAll, testSetAll, testUpdateOne} = testSlice.actions;
+export const {
+    testAddOne,
+    testRemoveAll,
+    testSetAll,
+    testUpdateOne,
+    setLoading,
+    setError
+} = testSlice.actions;
 
 /** Export adapter selectors */
 export const {

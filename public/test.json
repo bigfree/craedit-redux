@@ -1,7 +1,7 @@
 [
     {
         "id": "2hOqJTLdTUjCVZwLp7ksA",
-        "type": "syncPoint",
+        "type": "sync",
         "data": {
             "id": "TA_SrPreCompleteServiceInformationCancel",
             "name": "Požadavek na vyjádření"
@@ -13,7 +13,7 @@
     },
     {
         "id": "sVUt6JmFT7jZvV0FOEjMl",
-        "type": "conditionPoint",
+        "type": "condition",
         "data": {
             "id": "TA_SrPreCompleteServiceInformationCancel",
             "name": "Karta služby nebyla předvyplněna"
@@ -25,7 +25,7 @@
     },
     {
         "id": "jZ7QTCg_1_jkz",
-        "type": "taskPoint",
+        "type": "task",
         "data": {
             "id": "TA_SrPreCompleteServiceInformationCancel",
             "name": "Vyplnění karty služby"
@@ -37,7 +37,7 @@
     },
     {
         "id": "jZ7QTCg_1_jka",
-        "type": "taskPoint",
+        "type": "task",
         "data": {
             "id": "TA_SrPreCompleteServiceInformationCancel",
             "name": "Zrušení úkolu na předvyplnění KS"
@@ -46,23 +46,5 @@
             "x": 380,
             "y": 90
         }
-    },
-    {
-        "id": "cUhU2vZTg8qniKYf0Wa9H",
-        "arrowHeadType": "arrowclosed",
-        "type": "straight",
-        "source": "sVUt6JmFT7jZvV0FOEjMl",
-        "sourceHandle": null,
-        "target": "jZ7QTCg_1_jkz",
-        "targetHandle": null
-    },
-    {
-        "id": "cUhU2vZTg8qniKYf0Wa9A",
-        "arrowHeadType": "arrowclosed",
-        "type": "straight",
-        "source": "sVUt6JmFT7jZvV0FOEjMl",
-        "sourceHandle": null,
-        "target": "jZ7QTCg_1_jka",
-        "targetHandle": null
     }
 ]

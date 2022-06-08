@@ -1,12 +1,4 @@
-import {
-    createEntityAdapter,
-    createSelector,
-    createSlice,
-    current, Draft,
-    EntityId,
-    EntityState,
-    original, PayloadAction
-} from "@reduxjs/toolkit";
+import {createEntityAdapter, createSelector, createSlice, Draft, EntityState, PayloadAction} from "@reduxjs/toolkit";
 import {PURGE} from "redux-persist/es/constants";
 import {RootState} from "../../app/store";
 
@@ -53,7 +45,7 @@ const tabNavigationSlice = createSlice({
         tabRemoveAll: tabNavigationAdapter.removeAll,
         tabSetActive: (state: Draft<TabNavigationStateWithAdapter>, data: PayloadAction<string>) => {
             Object.values(state.entities).map((tab: TabEntity | undefined) => {
-                if (typeof tab === 'undefined') {
+                if (tab === undefined) {
                     return;
                 }
 
@@ -72,12 +64,9 @@ const tabNavigationSlice = createSlice({
  * Export tab navigation actions
  */
 export const {
-    tabAddOne,
-    tabUpdateOne,
     tabUpdateMany,
     tabSetAll,
     tabRemoveOne,
-    tabRemoveAll,
     tabSetActive,
 } = tabNavigationSlice.actions;
 
@@ -94,14 +83,14 @@ export const {
  * Select tab by slug
  */
 export const selectTabBySlug = createSelector(
-    selectAllTabs, 
+    selectAllTabs,
     (state: TabNavigationStateWithAdapter, slug: string) => slug,
     (tabs: TabEntity[], slug: string) => {
         const tab = tabs.filter((tab: TabEntity) => {
             return slug === tab.slug;
         });
         return tab[0];
-});
+    });
 
 /**
  * Export reducers

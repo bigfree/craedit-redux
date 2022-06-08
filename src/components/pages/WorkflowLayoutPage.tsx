@@ -1,13 +1,11 @@
 import {FC, Fragment} from "react";
 import {Outlet} from "react-router-dom";
 
-const HomePage: FC = (): JSX.Element => {
+const WorkflowLayoutPage: FC = (): JSX.Element => {
     return (
         <Fragment>
-            <h1>Layout Home page</h1>
             <Outlet/>
         </Fragment>
     );
 }
-
-export default HomePage;
+export default WorkflowLayoutPage;

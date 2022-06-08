@@ -1,7 +1,7 @@
-import {FC, SyntheticEvent, useEffect, useState} from "react";
+import {FC, SyntheticEvent} from "react";
 import {IconButton} from "@mui/material";
-import {RootState, store} from "../../app/store";
-import {selectTabById, TabEntity, tabRemoveOne} from "../../stores/tabNavigation/tabNavigationSlice";
+import {RootState} from "../../app/store";
+import {selectTabById, tabRemoveOne} from "../../stores/tabNavigation/tabNavigationSlice";
 import {connect, ConnectedProps} from "react-redux";
 import CloseIcon from '@mui/icons-material/Close';
 import {useLocation, useNavigate} from "react-router-dom";

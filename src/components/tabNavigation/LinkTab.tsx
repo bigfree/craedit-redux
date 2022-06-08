@@ -1,7 +1,7 @@
-import {FC, Fragment, useEffect, useState} from "react";
-import {RootState, store} from "../../app/store";
+import {FC, Fragment} from "react";
+import {RootState} from "../../app/store";
 import {connect, ConnectedProps} from "react-redux";
-import {selectTabById, TabEntity} from "../../stores/tabNavigation/tabNavigationSlice";
+import {selectTabById} from "../../stores/tabNavigation/tabNavigationSlice";
 import {Link} from "@mui/material";
 import {Link as RouterLink} from "react-router-dom"
 import {blue} from "@mui/material/colors";

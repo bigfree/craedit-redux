@@ -7,6 +7,7 @@ import {RootState} from "../../app/store";
 import {Divider} from "@mui/material";
 import EditTestNodeForm from "../playground/editTestNodeForm";
 import AddTestNodeForm from "../playground/addTestNodeForm";
+import {playgroundSagaActions} from "../../sagas/playground";
 
 const mapStateToProps = (state: RootState) => ({
     testNodes: selectAllTest,
@@ -26,7 +27,7 @@ const mapDispatchToProps = {
     doUndo: () => ({type: 'TEST_UNDO'}),
     doRedo: () => ({type: 'TEST_REDO'}),
     testClearHistory: () => ({type: 'TEST_CLEAR_HISTORY'}),
-    fetchEntities: () => ({type: 'FETCH_ALL_ENTITIES'})
+    fetchEntities: () => ({type: playgroundSagaActions.FETCH_ALL_ENTITIES})
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -47,9 +48,7 @@ const PlaygroundPage: FC<PropsFromRedux> = (
         canUndo,
         canRedo,
         testAddOne,
-        testUpdateOne,
         testRemoveAll,
-        workflowAddOne,
         doUndo,
         doRedo,
         testClearHistory,
