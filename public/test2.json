@@ -1,7 +1,7 @@
 [
     {
         "id": "2hOqJTLdTUjCVZwLp7ksX",
-        "type": "sync",
+        "type": "default",
         "data": {
             "id": "TEST2",
             "name": "TEST2"
@@ -13,7 +13,7 @@
     },
     {
         "id": "sVUt6JmFT7jZvV0FOEjMX",
-        "type": "condition",
+        "type": "default",
         "data": {
             "id": "TEST2",
             "name": "TEST2"
@@ -25,7 +25,7 @@
     },
     {
         "id": "jZ7QTCg_1_jkX",
-        "type": "task",
+        "type": "default",
         "data": {
             "id": "TEST2",
             "name": "TEST2"
@@ -37,7 +37,7 @@
     },
     {
         "id": "jZ7QTCg_1_jkC",
-        "type": "task",
+        "type": "default",
         "data": {
             "id": "TEST2",
             "name": "TEST2"

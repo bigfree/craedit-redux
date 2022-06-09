@@ -4,7 +4,6 @@ import PointSlice from '../stores/point/pointSlice';
 import TabNavigationSlice from '../stores/tabNavigation/tabNavigationSlice';
 import TestSlice, {testAddOne, testRemoveAll, testSetAll, testUpdateOne} from '../stores/playground/testSlice';
 import {setupListeners} from "@reduxjs/toolkit/query";
-import storage from 'redux-persist/lib/storage';
 import {combineReducers} from 'redux';
 import {persistReducer} from 'redux-persist';
 import undoable, {includeAction, UndoableOptions} from 'redux-undo';
@@ -12,6 +11,7 @@ import {PersistConfig} from "redux-persist/es/types";
 import {CurriedGetDefaultMiddleware} from '@reduxjs/toolkit/dist/getDefaultMiddleware';
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from "../sagas/saga";
+import createIdbStorage from "@piotr-cz/redux-persist-idb-storage/src";
 
 /**
  * Initial saga middleware
@@ -46,9 +46,8 @@ const reducers = combineReducers({
 const persistConfig: PersistConfig<any> = {
     key: 'root',
     version: 1,
-    storage,
-    debug: true,
-    timeout: 0,
+    storage: createIdbStorage({name: 'myApp', storeName: 'keyval'}),
+    serialize: false,
     stateReconciler: (state: RootState) => state,
 };
 

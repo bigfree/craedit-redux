@@ -1,7 +1,7 @@
 [
     {
         "id": "2hOqJTLdTUjCVZwLp7ksA",
-        "type": "sync",
+        "type": "default",
         "data": {
             "id": "TA_SrPreCompleteServiceInformationCancel",
             "name": "Požadavek na vyjádření"
@@ -13,7 +13,7 @@
     },
     {
         "id": "sVUt6JmFT7jZvV0FOEjMl",
-        "type": "condition",
+        "type": "default",
         "data": {
             "id": "TA_SrPreCompleteServiceInformationCancel",
             "name": "Karta služby nebyla předvyplněna"
@@ -25,7 +25,7 @@
     },
     {
         "id": "jZ7QTCg_1_jkz",
-        "type": "task",
+        "type": "default",
         "data": {
             "id": "TA_SrPreCompleteServiceInformationCancel",
             "name": "Vyplnění karty služby"
@@ -37,7 +37,7 @@
     },
     {
         "id": "jZ7QTCg_1_jka",
-        "type": "task",
+        "type": "default",
         "data": {
             "id": "TA_SrPreCompleteServiceInformationCancel",
             "name": "Zrušení úkolu na předvyplnění KS"

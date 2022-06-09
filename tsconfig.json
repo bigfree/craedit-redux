@@ -19,7 +19,7 @@
     "isolatedModules": false, // change to true
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitThis": true,
     "strictNullChecks": true
   },

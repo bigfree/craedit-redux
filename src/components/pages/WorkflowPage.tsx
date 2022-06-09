@@ -1,16 +1,15 @@
 import {FC, Fragment, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {pointSagaActions} from "../../sagas/point";
-import {connect, ConnectedProps, useSelector} from "react-redux";
-import {selectAllPoints} from "../../stores/point/pointSlice";
+import {connect, ConnectedProps} from "react-redux";
+import Flow from "../flow/Flow";
+import {Box} from "@mui/material";
 
 type WorkflowParams = {
     workflowId: string;
 }
 
-const mapStateToProps = () => ({
-    selectAllPoints,
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
     fetchPoints: (payload: string) => ({type: pointSagaActions.FETCH_ALL_POINTS, payload})
@@ -20,8 +19,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-const WorkflowPage: FC<PropsFromRedux> = ({fetchPoints, selectAllPoints}: PropsFromRedux): JSX.Element => {
-    const allPointsSelector = useSelector(selectAllPoints);
+const WorkflowPage: FC<PropsFromRedux> = ({fetchPoints}: PropsFromRedux): JSX.Element => {
     const params = useParams<WorkflowParams>();
 
     useEffect(() => {
@@ -31,9 +29,11 @@ const WorkflowPage: FC<PropsFromRedux> = ({fetchPoints, selectAllPoints}: PropsF
 
     return (
         <Fragment>
-            <h1>Workflow page: {params.workflowId}</h1>
-            <hr/>
-            {JSON.stringify(allPointsSelector)}
+            <Box sx={{
+                flex: '1 1 100%',
+            }}>
+                <Flow/>
+            </Box>
         </Fragment>
     );
 }
