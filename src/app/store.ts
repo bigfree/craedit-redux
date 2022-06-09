@@ -49,6 +49,7 @@ const persistConfig: PersistConfig<any> = {
     storage: createIdbStorage({name: 'myApp', storeName: 'keyval'}),
     serialize: false,
     stateReconciler: (state: RootState) => state,
+    whitelist: ['point']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
