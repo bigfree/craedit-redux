@@ -39,7 +39,7 @@ const pointSlice = createSlice({
         pointUpdateOne: pointAdapter.updateOne,
         pointRemoveAll: pointAdapter.removeAll,
     },
-    extraReducers: (builder: ActionReducerMapBuilder<EntityState<PointEntityNode> & PointState>) => {
+    extraReducers: (builder: ActionReducerMapBuilder<PointStateAdapter>) => {
         builder.addCase(PURGE, (state: PointStateAdapter) => {
             pointAdapter.removeAll(state);
         });

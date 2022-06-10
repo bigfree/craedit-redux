@@ -3,14 +3,12 @@ import {StrictMode} from 'react';
 import {Provider} from 'react-redux';
 import {BrowserRouter} from "react-router-dom";
 import App from './App';
-import {store} from './app/store';
+import {persistor, store} from './app/store';
 import * as serviceWorker from './serviceWorker';
 import {theme} from "./theme";
 import {PersistGate} from "redux-persist/integration/react";
-import {persistStore} from "redux-persist";
 import {createRoot} from "react-dom/client";
 
-const persistor = persistStore(store);
 const container = document.getElementById('root');
 // eslint-disable-next-line
 const root = createRoot(container!);

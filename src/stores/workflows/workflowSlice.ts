@@ -1,17 +1,18 @@
-import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
+import {ActionReducerMapBuilder, createEntityAdapter, createSlice, Draft, EntityState} from "@reduxjs/toolkit";
 import {PURGE} from "redux-persist/es/constants";
 import {RootState} from "../../app/store";
-import {TestEntity} from "../playground/testSlice";
+import {GlobalSliceState} from "../../types";
 
-export type WorkflowState = {
-    state: string;
-}
+export type WorkflowState = GlobalSliceState
 
 export type WorkflowEntity = {
     id: string;
     name: string;
-    data?: TestEntity[];
+    createdAt?: Date;
+    updatedAt?: Date;
 }
+
+export type WorkflowStateAdapter = EntityState<WorkflowEntity> & WorkflowState;
 
 const workflowAdapter = createEntityAdapter<WorkflowEntity>({
     selectId: (workflow: WorkflowEntity) => workflow.id
@@ -20,29 +21,41 @@ const workflowAdapter = createEntityAdapter<WorkflowEntity>({
 export const workflowSlice = createSlice({
     name: 'workflow',
     initialState: workflowAdapter.getInitialState<WorkflowState>({
-        state: 'idle'
+        loading: false,
+        error: null
     }),
     reducers: {
         workflowAddOne: workflowAdapter.addOne,
         workflowAddMany: workflowAdapter.addMany,
-        workflowRemoveAll: workflowAdapter.removeAll,
         workflowUpdateOne: workflowAdapter.updateOne,
+        workflowRemoveAll: workflowAdapter.removeAll,
     },
-    extraReducers: (builder) => {
-        builder.addCase(PURGE, (state) => {
+    extraReducers: (builder: ActionReducerMapBuilder<WorkflowStateAdapter>) => {
+        builder.addCase(PURGE, (state: Draft<WorkflowStateAdapter>) => {
             workflowAdapter.removeAll(state);
         })
     }
 });
 
-/** Export actions */
-export const {workflowAddOne, workflowAddMany, workflowRemoveAll, workflowUpdateOne} = workflowSlice.actions;
+/**
+ * Export actions
+ */
+export const {
+    workflowAddOne,
+    workflowAddMany,
+    workflowUpdateOne,
+    workflowRemoveAll
+} = workflowSlice.actions;
 
-/** Export selectors */
+/**
+ *  Export selectors
+ */
 export const {
     selectById: selectWorkflowById,
     selectAll: selectAllWorkflow,
 } = workflowAdapter.getSelectors<RootState>((state: RootState) => state.workflow);
 
-/** Export reducer */
+/**
+ * Export reducer
+ */
 export default workflowSlice.reducer;

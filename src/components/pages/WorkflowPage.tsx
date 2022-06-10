@@ -4,33 +4,33 @@ import {pointSagaActions} from "../../sagas/point";
 import {connect, ConnectedProps} from "react-redux";
 import Flow from "../flow/Flow";
 import {Box} from "@mui/material";
+import WorkflowHeader from "../workflow/WorkflowHeader";
 
-type WorkflowParams = {
-    workflowId: string;
-}
-
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = {
+const connector = connect(() => ({}), {
     fetchPoints: (payload: string) => ({type: pointSagaActions.FETCH_ALL_POINTS, payload})
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+});
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 const WorkflowPage: FC<PropsFromRedux> = ({fetchPoints}: PropsFromRedux): JSX.Element => {
-    const params = useParams<WorkflowParams>();
+    const urlParams = useParams<{
+        workflowId: string
+    }>();
 
     useEffect(() => {
-        console.log(params);
-        fetchPoints(params.workflowId ?? '');
-    }, [params])
+        if (!urlParams.workflowId) {
+            return;
+        }
+
+        fetchPoints(urlParams.workflowId);
+    }, [urlParams]);
 
     return (
         <Fragment>
+            <WorkflowHeader/>
             <Box sx={{
                 flex: '1 1 100%',
+                position: 'relative',
             }}>
                 <Flow/>
             </Box>

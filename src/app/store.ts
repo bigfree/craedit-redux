@@ -1,17 +1,19 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {configureStore, createStore} from '@reduxjs/toolkit';
 import WorkflowSlice from '../stores/workflows/workflowSlice';
 import PointSlice from '../stores/point/pointSlice';
 import TabNavigationSlice from '../stores/tabNavigation/tabNavigationSlice';
 import TestSlice, {testAddOne, testRemoveAll, testSetAll, testUpdateOne} from '../stores/playground/testSlice';
 import {setupListeners} from "@reduxjs/toolkit/query";
 import {combineReducers} from 'redux';
-import {persistReducer} from 'redux-persist';
+import {PAUSE, PERSIST, persistReducer, persistStore} from 'redux-persist';
 import undoable, {includeAction, UndoableOptions} from 'redux-undo';
 import {PersistConfig} from "redux-persist/es/types";
 import {CurriedGetDefaultMiddleware} from '@reduxjs/toolkit/dist/getDefaultMiddleware';
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from "../sagas/saga";
-import createIdbStorage from "@piotr-cz/redux-persist-idb-storage/src";
+import storage from 'redux-persist/lib/storage';
+import createIdbStorage from "@piotr-cz/redux-persist-idb-storage";
+import {FLUSH, PURGE, REGISTER, REHYDRATE} from "redux-persist/es/constants";
 
 /**
  * Initial saga middleware
@@ -43,13 +45,20 @@ const reducers = combineReducers({
 });
 
 // eslint-disable-next-line
-const persistConfig: PersistConfig<any> = {
+const persistConfig: PersistConfig<any> & {deserialize: boolean} = {
     key: 'root',
     version: 1,
-    storage: createIdbStorage({name: 'myApp', storeName: 'keyval'}),
+    storage: createIdbStorage({
+        name: 'craedit',
+        storeName: 'craeditstore',
+        version: 1
+    }),
+    timeout: 100,
+    // storage: storage,
     serialize: false,
+    deserialize: false,
+    debug: true,
     stateReconciler: (state: RootState) => state,
-    whitelist: ['point']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -62,14 +71,17 @@ export const store = configureStore({
     devTools: process.env.NODE_ENV !== 'production',
     middleware: (getDefaultMiddleware: CurriedGetDefaultMiddleware) => getDefaultMiddleware({
         immutableCheck: false,
-        serializableCheck: false,
+        serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
         thunk: false
     }).concat([sagaMiddleware]),
 });
 
 sagaMiddleware.run(rootSaga);
-
 setupListeners(store.dispatch);
+
+export const persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
