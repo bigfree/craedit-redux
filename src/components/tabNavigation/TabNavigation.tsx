@@ -14,22 +14,14 @@ import {nanoid} from "@reduxjs/toolkit";
 import {TabsUnstyled} from "@mui/base";
 import {useParams} from "react-router-dom";
 
-const mapStateToProps = () => {
-    return {
-        selectAllTabs,
-        selectTabBySlug,
-    };
-};
-
-const mapDispatchToProps = {
+const connector = connect(() => ({
+    selectAllTabs,
+    selectTabBySlug,
+}), {
     tabSetAll,
     tabUpdateMany,
     tabSetActive
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
+});
 
 /**
  * Tab navigation component
@@ -38,7 +30,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
  * @param tabRemoveAllActive
  * @constructor
  */
-const TabNavigation: FC<PropsFromRedux> = ({selectAllTabs, tabSetAll, tabSetActive}): JSX.Element => {
+const TabNavigation: FC<ConnectedProps<typeof connector>> = ({selectAllTabs, tabSetAll, tabSetActive}): JSX.Element => {
     const params = useParams<{ workflowId: string }>();
     const selectAllTabsSelector = useSelector(selectAllTabs);
 
@@ -47,14 +39,14 @@ const TabNavigation: FC<PropsFromRedux> = ({selectAllTabs, tabSetAll, tabSetActi
         if (0 === selectAllTabsSelector.length) {
             tabSetAll([{
                 id: nanoid(),
-                name: 'test name',
+                name: 'TestWorkflow',
                 active: false,
-                slug: 'test'
+                slug: 'TestWorkflow'
             }, {
                 id: nanoid(),
-                name: 'test name 2',
+                name: 'TestWorkflow2',
                 active: false,
-                slug: 'test2'
+                slug: 'TestWorkflow2'
             }, {
                 id: nanoid(),
                 name: 'Playground',

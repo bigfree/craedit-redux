@@ -25,9 +25,11 @@ export const workflowSlice = createSlice({
         error: null
     }),
     reducers: {
+        workflowSetAll: workflowAdapter.setAll,
         workflowAddOne: workflowAdapter.addOne,
         workflowAddMany: workflowAdapter.addMany,
         workflowUpdateOne: workflowAdapter.updateOne,
+        workflowUpsertOne: workflowAdapter.upsertOne,
         workflowRemoveAll: workflowAdapter.removeAll,
     },
     extraReducers: (builder: ActionReducerMapBuilder<WorkflowStateAdapter>) => {
@@ -41,9 +43,11 @@ export const workflowSlice = createSlice({
  * Export actions
  */
 export const {
+    workflowSetAll,
     workflowAddOne,
     workflowAddMany,
     workflowUpdateOne,
+    workflowUpsertOne,
     workflowRemoveAll
 } = workflowSlice.actions;
 
@@ -52,7 +56,7 @@ export const {
  */
 export const {
     selectById: selectWorkflowById,
-    selectAll: selectAllWorkflow,
+    selectAll: selectAllWorkflows,
 } = workflowAdapter.getSelectors<RootState>((state: RootState) => state.workflow);
 
 /**

@@ -53,7 +53,7 @@ const persistConfig: PersistConfig<any> & {deserialize: boolean} = {
         storeName: 'craeditstore',
         version: 1
     }),
-    timeout: 100,
+    timeout: 0,
     // storage: storage,
     serialize: false,
     deserialize: false,
